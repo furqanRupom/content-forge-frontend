@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Zap, Mail } from "lucide-react";
+import Logo from "../logo/LogoIcon";
 
 const footerLinks = {
   Product: [
@@ -70,15 +71,7 @@ export default function Footer() {
           
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-3.5">
-            <Link href="/" className="flex items-center gap-2 group w-fit">
-              <div className="w-7 h-7 rounded-sm bg-primary flex items-center justify-center shadow-sm">
-                <Zap className="w-3.5 h-3.5 text-primary-foreground" strokeWidth={2.5} />
-              </div>
-              <span className="font-sans font-bold text-base tracking-tight text-foreground">
-                Content<span className="text-primary">Forge</span>
-                <span className="text-[10px] font-bold ml-0.5 text-muted-foreground/80 uppercase">AI</span>
-              </span>
-            </Link>
+           <Logo />
 
             <p className="text-xs text-muted-foreground leading-relaxed max-w-xs">
               Turn structural thoughts into polished copy in seconds. An open dashboard ecosystem built for modern writers and developers.

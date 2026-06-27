@@ -23,6 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import Logo from "../logo/LogoIcon";
 
 const staticLinks = [
   { label: "Pricing", href: "/pricing" },
@@ -62,14 +63,7 @@ export default function Navbar() {
         
         {/* Left: Branding & Navigation Section */}
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2 group tracking-tight">
-            <div className="relative w-7 h-7 rounded-sm flex items-center justify-center bg-primary text-primary-foreground shadow-sm">
-              <Zap className="w-3.5 h-3.5 fill-current" strokeWidth={2} />
-            </div>
-            <span className="font-sans font-bold text-base text-foreground tracking-tight">
-              Content<span className="text-primary">Forge</span>
-            </span>
-          </Link>
+         <Logo />
 
           {/* Desktop Navigation Links Container */}
           <div className="hidden md:flex items-center gap-1 border-l border-border pl-4 h-5">

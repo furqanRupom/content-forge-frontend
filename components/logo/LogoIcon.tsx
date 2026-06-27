@@ -41,7 +41,8 @@ export default function Logo({
                     "font-sans font-bold text-base text-foreground tracking-tight transition-colors duration-150",
                     textClassName
                 )}>
-                    Content<span className="text-primary transition-opacity duration-150 group-hover:opacity-90">Forge</span>
+                    Content <span className="text-primary transition-opacity duration-150 group-hover:opacity-90 uppercase">Forge</span>
+                    <span className="text-[10px] font-bold ml-0.5 text-muted-foreground/80 uppercase">AI</span>
                 </span>
             )}
         </Link>

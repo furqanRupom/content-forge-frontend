@@ -1,0 +1,111 @@
+"use client";
+
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+import type { AnyFieldApi } from "@tanstack/react-form";
+import React from "react";
+
+const getErrorMessage = (error: unknown): string => {
+    if (typeof error === "string") return error;
+
+    if (error && typeof error === "object") {
+        if ("message" in error && typeof error.message === "string") {
+            return error.message;
+        }
+    }
+
+    return String(error);
+};
+
+type AppFieldProps = {
+    field: AnyFieldApi;
+    label: string;
+    type?: "text" | "email" | "password" | "number" | "date" | "time";
+    placeholder?: string;
+    append?: React.ReactNode;
+    prepend?: React.ReactNode;
+    className?: string;
+    disabled?: boolean;
+};
+
+const AppField = ({
+    field,
+    label,
+    type = "text",
+    placeholder,
+    append,
+    prepend,
+    className,
+    disabled = false,
+}: AppFieldProps) => {
+    const firstError =
+        field.state.meta.isTouched && field.state.meta.errors.length > 0
+            ? getErrorMessage(field.state.meta.errors[0])
+            : null;
+
+    const hasError = firstError !== null;
+
+    return (
+        <div className={cn("space-y-1.5 w-full", className)}>
+            <Label
+                htmlFor={field.name}
+                className={cn(
+                    "text-xs font-bold tracking-tight text-foreground transition-colors",
+                    hasError && "text-destructive"
+                )}
+            >
+                {label}
+            </Label>
+
+            {/* Input wrapper stack */}
+            <div className="flex flex-col space-y-1">
+                <div className="relative flex items-center w-full">
+                    {prepend && (
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none z-10 text-muted-foreground">
+                            {prepend}
+                        </div>
+                    )}
+
+                    <Input
+                        id={field.name}
+                        name={field.name}
+                        type={type}
+                        value={field.state.value ?? ""}
+                        placeholder={placeholder}
+                        onBlur={field.handleBlur}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        disabled={disabled}
+                        aria-invalid={hasError}
+                        aria-describedby={hasError ? `${field.name}-error` : undefined}
+                        className={cn(
+                            "h-9 rounded-sm bg-muted/20 border-border/60 text-xs focus-visible:ring-1 focus-visible:ring-primary/40 transition-colors w-full",
+                            prepend && "pl-9",
+                            append && "pr-9",
+                            hasError && "border-destructive focus-visible:ring-destructive/20 bg-destructive/5"
+                        )}
+                    />
+
+                    {append && (
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-1.5 z-10">
+                            {append}
+                        </div>
+                    )}
+                </div>
+
+                {/* Error string rendering outside absolute frame context */}
+                {hasError && (
+                    <p
+                        id={`${field.name}-error`}
+                        role="alert"
+                        className="text-[11px] font-medium text-destructive leading-tight pt-0.5 animate-in fade-in-50 slide-in-from-top-1"
+                    >
+                        {firstError}
+                    </p>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default AppField;
