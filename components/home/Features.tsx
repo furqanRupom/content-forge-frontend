@@ -1,86 +1,159 @@
-import React from "react";
 
-export default function Features() {
+"use client";
+
+import {
+  Sparkles,
+  LayoutTemplate,
+  Zap,
+  Star,
+  BarChart3,
+  Shield,
+  RefreshCw,
+  Globe,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const features = [
+  {
+    icon: Sparkles,
+    title: "AI-Powered Generation",
+    description:
+      "Describe what you need and our AI produces high-quality, on-brand content in under 5 seconds. Powered by the latest language models.",
+  },
+  {
+    icon: LayoutTemplate,
+    title: "500+ Expert Templates",
+    description:
+      "Skip the blank page with templates built by top copywriters across 30+ content categories.",
+  },
+  {
+    icon: Star,
+    title: "Favorites & Collections",
+    description:
+      "Save your best outputs, organize by project, and reuse what works.",
+  },
+  {
+    icon: Zap,
+    title: "Instant Regeneration",
+    description:
+      "Not quite right? Regenerate with one click — tweak tone, length, or style in seconds.",
+  },
+  {
+    icon: BarChart3,
+    title: "Generation Dashboard",
+    description:
+      "Track every piece of content you've created, search your history, and monitor your usage at a glance.",
+  },
+  {
+    icon: Shield,
+    title: "Secure & Private",
+    description:
+      "Your data is encrypted and never used to train AI models. What you create is yours.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Smart Iterations",
+    description:
+      "Refine and iterate on generated content with follow-up prompts and context-aware edits.",
+  },
+  {
+    icon: Globe,
+    title: "Multi-language Support",
+    description:
+      "Generate content in 25+ languages for global audiences without losing quality.",
+  },
+];
+
+export default function FeaturesSection() {
   return (
-    <section id="features" className="py-24 md:py-32">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-        
-        <div className="mb-20 max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
-            Evolutionary Content Infrastructure
+    <section id="features" className="relative py-16 overflow-hidden">
+      {/* Decorative ambient background orb tied strictly to your main primary configuration */}
+      <div className="absolute w-80 h-80 top-16 -right-24 rounded-full bg-primary/10 blur-[90px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header Block with compact spacing layout */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-1.5 bg-primary/10 border border-primary/20 text-primary text-xs font-semibold px-3 py-1 rounded-sm mb-3.5 shadow-sm">
+            <Sparkles className="w-3 h-3" />
+            Everything You Need
+          </div>
+          <h2 className="font-sans text-3xl sm:text-4xl font-bold tracking-tight text-foreground text-balance">
+            Built for <span className="text-primary">content creators</span>
+            <br /> who don't want to slow down
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Don&apos;t just generate. Forge. Our multi-layered infrastructure is built for reliability, security, and exponential scale.
+          <p className="mt-3.5 text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto text-balance">
+            From first draft to final copy, ContentForge AI handles every step
+            of your content workflow — so you can focus on ideas, not execution.
           </p>
         </div>
 
-        {/* Bento Grid layout config */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          
-          {/* Main Feature Block */}
-          <div className="md:col-span-8 glass-card rounded-2xl p-8 overflow-hidden relative group flex flex-col justify-between">
-            <div>
-              <span className="material-symbols-outlined text-primary text-[40px] mb-6">hub</span>
-              <h3 className="text-2xl md:text-3xl font-bold font-heading text-foreground mb-4">Multi-Model Engine</h3>
-              <p className="text-muted-foreground max-w-md text-sm leading-relaxed">
-                Seamlessly bridge GPT-4, Claude 3, and specialized Llama instances. Forge manages the orchestration so you focus on the vision.
-              </p>
-            </div>
-            <div className="mt-12 rounded-xl border border-border overflow-hidden h-64 bg-accent/20 relative">
-               {/* Replace with your illustration layout component block as needed */}
-               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent group-hover:scale-105 transition-transform duration-700" />
-            </div>
-          </div>
+        {/* Bento Layout Grid — Height constraints optimized for clear density mapping */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[190px]">
+          {/* Feature 1 — Hero card layout spans 2 columns & 2 rows */}
+          <FeatureCard feature={features[0]} className="lg:col-span-2 lg:row-span-2" isHero />
 
-          {/* Secure Vault Block */}
-          <div className="md:col-span-4 glass-card rounded-2xl p-8 flex flex-col justify-between">
-            <div>
-              <span className="material-symbols-outlined text-primary text-[40px] mb-6">shield</span>
-              <h3 className="text-2xl font-bold font-heading text-foreground mb-4">The Vault</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                Quantum-resistant encryption for your proprietary data. Your creative intellectual property remains strictly yours.
-              </p>
-            </div>
-            <div className="mt-8 pt-6 border-t border-border/30">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-primary">verified</span>
-                </div>
-                <span className="text-xs font-semibold font-mono tracking-widest text-foreground">ISO 27001 SOC2</span>
-              </div>
-            </div>
-          </div>
+          {/* Feature 2 */}
+          <FeatureCard feature={features[1]} />
 
-          {/* Governance Control Block */}
-          <div className="md:col-span-4 glass-card rounded-2xl p-8">
-            <span className="material-symbols-outlined text-primary text-[40px] mb-6">gavel</span>
-            <h3 className="text-2xl font-bold font-heading text-foreground mb-4">Governance</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Enterprise-grade RBAC and audit trails. Complete transparency into token usage and team throughput.
-            </p>
-          </div>
+          {/* Feature 3 */}
+          <FeatureCard feature={features[2]} />
 
-          {/* Pipeline Automation Block */}
-          <div className="md:col-span-8 glass-card rounded-2xl p-8 flex flex-col md:flex-row gap-6 overflow-hidden group">
-            <div className="flex-1 flex flex-col justify-between">
-              <div>
-                <span className="material-symbols-outlined text-primary text-[40px] mb-6">automation</span>
-                <h3 className="text-2xl font-bold font-heading text-foreground mb-4">Auto-Pipeline</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                  From ideation to CMS publishing in one flow. Automated quality checks and brand voice alignment.
-                </p>
-              </div>
-              <button className="text-primary font-bold flex items-center gap-2 hover:translate-x-2 transition-transform duration-200 text-sm mt-auto text-left">
-                Explore integrations <span className="material-symbols-outlined text-sm">arrow_forward</span>
-              </button>
-            </div>
-            <div className="flex-1 rounded-xl border border-border overflow-hidden h-48 md:h-full min-h-[180px] bg-accent/10 relative">
-               <div className="absolute inset-0 bg-gradient-to-tr from-secondary/10 to-transparent group-hover:rotate-1 transition-transform duration-500" />
-            </div>
-          </div>
+          {/* Feature 4 */}
+          <FeatureCard feature={features[3]} />
 
+          {/* Feature 5 — Large structural configuration dashboard card layout */}
+          <FeatureCard feature={features[4]} className="lg:col-span-1 lg:row-span-2" isHero />
+
+          {/* Feature 6 */}
+          <FeatureCard feature={features[5]} />
+
+          {/* Feature 7 */}
+          <FeatureCard feature={features[6]} />
+
+          {/* Feature 8 */}
+          <FeatureCard feature={features[7]} />
         </div>
       </div>
     </section>
+  );
+}
+
+function FeatureCard({
+  feature,
+  className,
+  isHero = false,
+}: {
+  feature: (typeof features)[number];
+  className?: string;
+  isHero?: boolean;
+}) {
+  const Icon = feature.icon;
+
+  return (
+    <div
+      className={cn(
+        "relative flex flex-col justify-between overflow-hidden p-5 rounded-sm border border-border bg-card hover:bg-muted/40 transition-all duration-200 shadow-2xs group",
+        className
+      )}
+    >
+      <div className="relative z-10 flex flex-col h-full justify-between gap-3">
+        <div>
+          <div className="w-9 h-9 rounded-sm flex items-center justify-center mb-3.5 bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
+            <Icon className="w-4 h-4" />
+          </div>
+          <h3 className="font-sans font-bold text-xs sm:text-sm text-foreground mb-1.5 tracking-tight">
+            {feature.title}
+          </h3>
+          <p
+            className={cn(
+              "text-xs text-muted-foreground leading-relaxed text-pretty",
+              isHero ? "sm:text-sm max-w-md" : ""
+            )}
+          >
+            {feature.description}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
