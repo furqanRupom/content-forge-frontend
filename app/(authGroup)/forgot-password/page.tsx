@@ -14,7 +14,7 @@ export default function ForgotPasswordPage() {
           <div className="text-center mb-4">
             <Logo className="flex justify-center items-center pb-5" />
             <Separator />
-            <h1 className="font-sans text-xl font-bold text-foreground tracking-tight pt-5">Reset password</h1>
+            <h1 className="font-sans text-xl font-bold text-foreground tracking-tight pt-5">Forgot password</h1>
           </div>
 
           {/* Separated client handler block */}

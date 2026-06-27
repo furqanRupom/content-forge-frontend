@@ -9,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { userLogout } from "@/services/auth.service";
 import { UserInfo } from "@/types/user.types";
 import { useQueryClient } from "@tanstack/react-query";
@@ -19,13 +20,17 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
 interface UserDropdownProps {
-  userInfo: UserInfo;
+  userInfo: UserInfo & {image?:string};
 }
 
 const UserDropdown = ({ userInfo }: UserDropdownProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [isPending, startTransition] = useTransition();
+
+  // Extract the fallback letter securely
+  const nameFallbackChar = userInfo?.name ? userInfo.name.trim().charAt(0).toUpperCase() : 'U';
+
   const handleLogout = () => {
     startTransition(async () => {
       try {
@@ -36,22 +41,34 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
         queryClient.clear();
 
         // 3. Force hard browser replacement to login to let middleware handle fresh states
-        router.push("/login")
+        router.push("/login");
       } catch (error) {
         console.error("Logout runtime error:", error);
       }
     });
-  }; return (
+  };
+
+  return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
           size="icon"
-          className="rounded-sm h-8 w-8 shrink-0 border-border/60 bg-muted/20 hover:bg-accent cursor-pointer"
+          className="rounded-sm h-8 w-8 shrink-0 border-border/60 bg-muted/20 hover:bg-accent cursor-pointer p-0 overflow-hidden"
         >
-          <span className="text-xs font-bold text-foreground">
-            {userInfo?.name?.charAt(0).toUpperCase() || "U"}
-          </span>
+          {/* Avatar Trigger with dynamic fallback layer */}
+          <Avatar className="w-full h-full rounded-sm">
+            {userInfo?.image ? (
+              <AvatarImage 
+                src={userInfo.image} 
+                alt={userInfo?.name || "User Dropdown Identity"} 
+                className="object-cover" 
+              />
+            ) : null}
+            <AvatarFallback className="rounded-sm font-sans font-bold text-xs bg-primary/10 text-primary w-full h-full flex items-center justify-center">
+              {nameFallbackChar}
+            </AvatarFallback>
+          </Avatar>
         </Button>
       </DropdownMenuTrigger>
 
@@ -84,11 +101,11 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
 
         <DropdownMenuItem asChild>
           <Link
-            href="/settings/security"
+            href="/change-password"
             className="flex items-center gap-2 px-2 py-1.5 text-xs font-bold text-muted-foreground hover:text-foreground rounded-sm cursor-pointer"
           >
             <ShieldCheck className="h-3.5 w-3.5" />
-            <span>Security Settings</span>
+            <span>Change Password</span>
           </Link>
         </DropdownMenuItem>
 
@@ -100,7 +117,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
           className="flex items-center gap-2 px-2 py-1.5 text-xs font-bold text-destructive focus:bg-destructive/10 focus:text-destructive rounded-sm cursor-pointer disabled:opacity-50"
         >
           <LogOut className="h-3.5 w-3.5" />
-          <span>{isPending ? "Logging out..." : "Logout Workspace"}</span>
+          <span>{isPending ? "Logging out..." : "Logout Account"}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
