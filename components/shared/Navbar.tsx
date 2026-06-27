@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import {
   Moon,
   Sun,
-  Zap,
   Menu,
   X,
   ChevronDown,
@@ -24,17 +23,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import Logo from "../logo/LogoIcon";
+import { useQuery } from "@tanstack/react-query";
+import { getUserInfo } from "@/services/auth.service";
+import UserDropdown from "../modules/Dashboard/UserDropdown";
 
 const staticLinks = [
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
-];
-
-const productLinks = [
-  { label: "AI Generation", href: "#generation", icon: Sparkles, desc: "Create layout content in seconds" },
-  { label: "Templates", href: "/templates", icon: LayoutTemplate, desc: "500+ ready-made templates" },
-  { label: "Favorites", href: "/dashboard/favorites", icon: Star, desc: "Save your best outputs" },
-  { label: "Dashboard", href: "/dashboard", icon: BarChart3, desc: "Track performance & analytics" },
 ];
 
 export default function Navbar() {
@@ -42,6 +37,38 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // 1. React client fetching integration matching your layout cache registry
+  const { data: userInfo, isLoading } = useQuery({
+    queryKey: ["auth-user"],
+    queryFn: async () => {
+      try {
+        return await getUserInfo();
+      } catch {
+        return null;
+      }
+    },
+  });
+
+  // 2. Dynamic route detection calculation matrix based on assigned user access role variables
+  const getDynamicDashboardRoute = () => {
+    if (!userInfo?.role) return "/dashboard";
+    
+    const role = userInfo.role.toUpperCase();
+    if (role === "ADMIN") return "/admin/dashboard";
+    if (role === "MANAGER") return "/manager/dashboard";
+    return "/dashboard";
+  };
+
+  const dashboardHref = getDynamicDashboardRoute();
+
+  // Re-calculated product links mapping array containing the runtime dynamic path variable
+  const productLinks = [
+    { label: "AI Generation", href: "#generation", icon: Sparkles, desc: "Create layout content in seconds" },
+    { label: "Templates", href: "/templates", icon: LayoutTemplate, desc: "500+ ready-made templates" },
+    { label: "Favorites", href: `${dashboardHref}/favorites`, icon: Star, desc: "Save your best outputs" },
+    { label: "Dashboard", href: dashboardHref, icon: BarChart3, desc: "Track performance & analytics" },
+  ];
 
   useEffect(() => {
     setMounted(true);
@@ -55,7 +82,7 @@ export default function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md",
         scrolled
-          ? "py-2.5 bg-background/80 border-b border-border/40 shadow-sm"
+          ? "py-2.5 bg-background/80 border-b border-b border-border/40 shadow-sm"
           : "py-4 bg-transparent"
       )}
     >
@@ -63,7 +90,7 @@ export default function Navbar() {
         
         {/* Left: Branding & Navigation Section */}
         <div className="flex items-center gap-6">
-         <Logo />
+          <Logo />
 
           {/* Desktop Navigation Links Container */}
           <div className="hidden md:flex items-center gap-1 border-l border-border pl-4 h-5">
@@ -98,7 +125,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Right Action Menu Group */}
+        {/* Right Action Menu Group (Dynamic Client Viewports) */}
         <div className="hidden md:flex items-center gap-2">
           <Button
             variant="ghost"
@@ -114,17 +141,26 @@ export default function Navbar() {
             )}
           </Button>
 
-          <Link href="/login">
-            <Button variant="ghost" size="sm" className="rounded-sm h-8 px-3 text-xs font-bold text-muted-foreground hover:text-foreground">
-              Sign in
-            </Button>
-          </Link>
+          {/* Conditional Layout Gate: Show UserDropdown when auth profile returns verified context */}
+          {!isLoading && mounted && userInfo ? (
+            <UserDropdown userInfo={userInfo} />
+          ) : !isLoading && mounted ? (
+            <>
+              <Link href="/login">
+                <Button variant="ghost" size="sm" className="rounded-sm h-8 px-3 text-xs font-bold text-muted-foreground hover:text-foreground">
+                  Sign in
+                </Button>
+              </Link>
 
-          <Link href="/register">
-            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 text-xs h-8 px-3.5 font-bold rounded-sm shadow-sm transition-all">
-              Get Started
-            </Button>
-          </Link>
+              <Link href="/register">
+                <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 text-xs h-8 px-3.5 font-bold rounded-sm shadow-sm transition-all">
+                  Get Started
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <div className="h-8 w-8 rounded-sm bg-muted/20 border border-border/40 animate-pulse" />
+          )}
         </div>
 
         {/* Mobile View Navigation Controls */}
@@ -153,7 +189,7 @@ export default function Navbar() {
       {/* Mobile Context Drawer Menu */}
       <div className={cn(
         "md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-background/95 border-border/40",
-        mobileOpen ? "max-h-[400px] opacity-100 border-b shadow-md" : "max-h-0 opacity-0"
+        mobileOpen ? "max-h-[440px] opacity-100 border-b shadow-md" : "max-h-0 opacity-0"
       )}>
         <div className="px-4 py-3 space-y-1 mt-1">
           {productLinks.map(({ label, href, icon: Icon }) => (
@@ -173,13 +209,24 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <div className="border-t border-border/60 pt-3 mt-2 flex items-center justify-between gap-2">
-            <Link href="/login" className="flex-1" onClick={() => setMobileOpen(false)}>
-              <Button variant="ghost" className="w-full text-xs h-8 rounded-sm justify-center font-bold">Sign in</Button>
-            </Link>
-            <Link href="/register" className="flex-1" onClick={() => setMobileOpen(false)}>
-              <Button className="w-full text-xs h-8 rounded-sm justify-center font-bold bg-primary text-primary-foreground">Get Started</Button>
-            </Link>
+          {/* Dynamic Mobile Authorization Actions Container Footer */}
+          <div className="border-t border-border/60 pt-3 mt-2 flex flex-col gap-2">
+            {!isLoading && mounted && userInfo ? (
+              <Link href={dashboardHref} className="w-full" onClick={() => setMobileOpen(false)}>
+                <Button variant="outline" className="w-full text-xs h-9 rounded-sm font-bold border-border/60">
+                  Go to Dashboard ({userInfo.role.toLowerCase()})
+                </Button>
+              </Link>
+            ) : !isLoading && mounted ? (
+              <div className="flex items-center justify-between gap-2 w-full">
+                <Link href="/login" className="flex-1" onClick={() => setMobileOpen(false)}>
+                  <Button variant="ghost" className="w-full text-xs h-8 rounded-sm justify-center font-bold">Sign in</Button>
+                </Link>
+                <Link href="/register" className="flex-1" onClick={() => setMobileOpen(false)}>
+                  <Button className="w-full text-xs h-8 rounded-sm justify-center font-bold bg-primary text-primary-foreground">Get Started</Button>
+                </Link>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
