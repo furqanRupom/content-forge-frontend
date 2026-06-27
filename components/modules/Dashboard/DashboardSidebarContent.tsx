@@ -19,18 +19,10 @@ const DashboardSidebarContent = ({ dashboardHome, navItems, userInfo }: Dashboar
     const pathname = usePathname();
 
     return (
-        <div className="hidden md:flex h-full w-64 flex-col border-r bg-card overflow-hidden shrink-0">
+        <div className="hidden md:flex h-full w-64 flex-col  border-r bg-card overflow-hidden shrink-0">
             {/* ContentForge Branding & Platform Logo */}
-            <div className="flex h-16 items-center px-6 border-b">
-                <Link href="/" className="flex items-center gap-2 tracking-tight group">
-                    <div className="relative w-7 h-7 rounded-sm flex items-center justify-center bg-primary text-primary-foreground shadow-sm">
-                        {/* Fallback to simple icon container template alignment if custom dynamic SVG markup isn't required inline */}
-                        <Logo  className="fill-current" />
-                    </div>
-                    <span className="font-sans font-bold text-base text-foreground tracking-tight">
-                        Content<span className="text-primary">Forge</span>
-                    </span>
-                </Link>
+            <div className="flex h-16 items-center px-6 border-b justify-center">
+               <Logo />
             </div>
 
             {/* Navigation Loop Area */}
