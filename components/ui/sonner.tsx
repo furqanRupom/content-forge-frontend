@@ -13,32 +13,31 @@ const Toaster = ({ ...props }: ToasterProps) => {
       className="toaster group"
       icons={{
         success: (
-          <CircleCheckIcon className="size-4" />
+          <CircleCheckIcon className="size-4 text-[oklch(0.65_0.20_145)]" /> // Contextual dark-mode friendly semantic balance
         ),
         info: (
-          <InfoIcon className="size-4" />
+          <InfoIcon className="size-4 text-primary" /> // Unifies info notifications with your core theme tone
         ),
         warning: (
-          <TriangleAlertIcon className="size-4" />
+          <TriangleAlertIcon className="size-4 text-[oklch(0.78_0.16_85)]" />
         ),
         error: (
-          <OctagonXIcon className="size-4" />
+          <OctagonXIcon className="size-4 text-destructive" /> // Maps natively to your design token's error target
         ),
         loading: (
-          <Loader2Icon className="size-4 animate-spin" />
+          <Loader2Icon className="size-4 animate-spin text-primary" />
         ),
       }}
-      style={
-        {
-          "--normal-bg": "var(--popover)",
-          "--normal-text": "var(--popover-foreground)",
-          "--normal-border": "var(--border)",
-          "--border-radius": "var(--radius)",
-        } as React.CSSProperties
-      }
       toastOptions={{
         classNames: {
-          toast: "cn-toast",
+          toast: "group-[.toaster]:bg-card group-[.toaster]:text-card-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg group-[.toaster]:rounded-[var(--radius)]",
+          description: "group-[.toast]:text-muted-foreground font-sans text-xs",
+          actionButton: "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground font-medium",
+          cancelButton: "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
+          success: "group-[.toast]:border-[oklch(0.65_0.20_145)]/30 group-[.toast]:bg-[oklch(0.65_0.20_145)]/[0.04]",
+          error: "group-[.toast]:border-destructive/30 group-[.toast]:bg-destructive/[0.04]",
+          warning: "group-[.toast]:border-[oklch(0.78_0.16_85)]/30 group-[.toast]:bg-[oklch(0.78_0.16_85)]/[0.04]",
+          info: "group-[.toast]:border-primary/30 group-[.toast]:bg-primary/[0.04]",
         },
       }}
       {...props}
