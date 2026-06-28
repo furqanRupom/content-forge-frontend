@@ -10,7 +10,7 @@ export const AddNewTemplateAction = async (payload: ITemplateCreatePayload): Pro
     const parsedPayload = createTemplateSchema.safeParse(payload)
     if (!parsedPayload.success) {
         return {
-            success: false,
+            success: false, 
             message: parsedPayload.error.issues[0]?.message || "Invalid input",
         }
     }
