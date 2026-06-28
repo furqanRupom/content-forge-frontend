@@ -56,12 +56,12 @@ export const managerNavItems: NavSection[] = [
             },
             {
                 title: "Content Logs",
-                href: "/manager/dashboard/generation-logs",
+                href: "/manager/dashboard/content-logs",
                 icon: "FileText",
             },
             {
                 title: "Usage Metrics",
-                href: "/manager/dashboard/analytics",
+                href: "/manager/dashboard/usage-metrics",
                 icon: "BarChart3",
             },
         ],

@@ -1,13 +1,15 @@
+import ManagerDashboardView from "@/components/modules/Dashboard/ManagerDashboardView";
+import { getUserInfo } from "@/services/auth.service";
 import { Metadata } from "next";
 
-export const metadata:Metadata = {
-    title:"Manager Dashboard - ContentForge AI",
-    description:"Manager dashboard page"
-}
+export const metadata: Metadata = {
+    title: "Manager Portal - Content Forge AI",
+    description: "Administrative intelligence and pipeline logs monitoring matrix"
+};
 
-const managerDashboardPage = () => {
-    return <main>
-        This is our manager dashoard page 
-    </main>
+export default async function ManagerDashboardPage() {
+    const response = await getUserInfo();
+    const user = response?.data || null;
+
+    return <ManagerDashboardView initialUser={user} />;
 }
-export default managerDashboardPage
