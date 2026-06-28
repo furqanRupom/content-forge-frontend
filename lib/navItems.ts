@@ -77,16 +77,11 @@ export const userNavItems: NavSection[] = [
                 href: "/dashboard/generate",
                 icon: "Sparkles",
             },
-            {
-                title: "Saved Templates",
-                href: "/templates",
-                icon: "LayoutTemplate",
-            },
-            {
-                title: "Favorites Pool",
-                href: "/dashboard/favorites",
-                icon: "Star",
-            },
+            // {
+            //     title: "Favorites Pool",
+            //     href: "/dashboard/favorites",
+            //     icon: "Star",
+            // },
             {
                 title: "Generation History",
                 href: "/dashboard/history",
