@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <rect 
+    x="0" 
+    y="0" 
+    width="512" 
+    height="512" 
+    rx="0" 
+    fill="var(--color-primary, oklch(0.7577 0.0972 292.6953))" 
+  />
+
+  <path 
+    d="M 288,64 L 144,272 L 240,272 L 224,448 L 368,240 L 272,240 Z" 
+    fill="var(--color-card, oklch(0.2406 0.0228 284.5558))" 
+    stroke="var(--color-card, oklch(0.2406 0.0228 284.5558))"
+    stroke-width="12"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+</svg>
