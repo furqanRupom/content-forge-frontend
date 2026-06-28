@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button"
 
 import { CreateGenerationAction, GetGenerationAction } from "@/app/(dashboard)/dashboard/generate/_action"
 import { getAllTemplates } from "@/services/template.service"
-import { IGenerationJobPayload, IGenerationSuccessPayload } from "@/types/generation.types"
+import { IGenerationSuccessPayload } from "@/types/generation.types"
 import { ICreateGenerationPayload } from "@/zod/generation.validation"
 import { ITemplate } from "@/types/template.types"
 
@@ -347,7 +347,7 @@ export default function GenerateContentPage() {
                 </div>
                 <div className="flex items-center gap-1.5">
                     <Link
-                        href="/dashboard/generate/history"
+                        href="/dashboard/history"
                         className="h-8 w-8 rounded-(--radius) border border-border bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted flex items-center justify-center transition-colors"
                         title="Historical Execution Matrix"
                     >
