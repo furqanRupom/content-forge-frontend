@@ -14,6 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeOff, ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface LoginFormProps {
     redirectPath?: string;
@@ -25,6 +26,22 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
 
     const { mutateAsync, isPending } = useMutation({
         mutationFn: (payload: ILoginPayload) => loginAction(payload, redirectPath),
+        onSuccess: (result: any) => {
+            if (result?.success) {
+                toast.success("Signed in successfully! Welcome back.");
+            } else {
+                toast.error(result?.message || "Login failed");
+            }
+        },
+        onError: (error: any) => {
+            // Handle Next.js redirect behavior
+            if (error?.digest?.startsWith("NEXT_REDIRECT")) {
+                toast.success("Signed in successfully!");
+                return;
+            }
+            console.error(`Login failed: ${error.message}`);
+            toast.error(error?.message || "Something went wrong. Please try again.");
+        },
     });
 
     const form = useForm({
@@ -163,11 +180,11 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                             </Link>
                         </div>
 
-                        {serverError && (
+                        {/* {serverError && (
                             <Alert variant="destructive" className="p-3 rounded-sm bg-destructive/10 text-destructive border-destructive/20">
                                 <AlertDescription className="text-xs font-semibold leading-tight">{serverError}</AlertDescription>
                             </Alert>
-                        )}
+                        )} */}
 
                         <form.Subscribe
                             selector={(s) => [s.canSubmit, s.isSubmitting] as const}

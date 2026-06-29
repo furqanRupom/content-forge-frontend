@@ -15,6 +15,7 @@ import { Eye, EyeOff, Zap, ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const perks = [
     "10 free AI generations every day",
@@ -29,6 +30,22 @@ const RegisterForm = () => {
 
     const { mutateAsync, isPending } = useMutation({
         mutationFn: (payload: IRegisterPayload) => RegisterAction(payload),
+        onSuccess: (result: any) => {
+            if (result?.success) {
+                toast .success("Account created successfully! Welcome to ContentForge.");
+            } else {
+                toast.error(result?.message || "Registration failed");
+            }
+        },
+        onError: (error: any) => {
+            // Handle Next.js redirect behavior
+            if (error?.digest?.startsWith("NEXT_REDIRECT")) {
+                toast.success("Account created successfully!");
+                return;
+            }
+            console.error(`Registration error: ${error.message}`);
+            toast.error(error?.message || "Something went wrong. Please try again.");
+        },
     });
 
     const form = useForm({
@@ -233,11 +250,11 @@ const RegisterForm = () => {
                         </p>
 
                         {/* Error notifications container */}
-                        {serverError && (
+                        {/* {serverError && (
                             <Alert variant="destructive" className="p-3 rounded-sm bg-destructive/10 text-destructive border-destructive/20">
                                 <AlertDescription className="text-xs font-semibold leading-tight">{serverError}</AlertDescription>
                             </Alert>
-                        )}
+                        )} */}
 
                         {/* Form submission executor node */}
                         <form.Subscribe
