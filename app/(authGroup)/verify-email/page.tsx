@@ -2,7 +2,11 @@ import { Suspense } from "react";
 import Logo from "@/components/logo/LogoIcon";
 import { Separator } from "@/components/ui/separator";
 import VerifyEmailForm from "@/components/modules/Auth/VerifyEmailForm";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Verify Email | ContentForge AI",
+  description: "Verify your email address to secure your ContentForge AI account and complete your registration.",
+};
 export default function VerifyEmailPage() {
   return (
     <main className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-12 px-4 bg-background">

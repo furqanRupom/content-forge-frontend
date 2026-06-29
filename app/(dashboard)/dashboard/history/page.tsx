@@ -3,6 +3,12 @@
 import GenerationsHistoryTable from "@/components/modules/User/GenerationHistoryManagement/GenerationHistoryTable"
 import { getAllGenerations } from "@/services/generation.service"
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query"
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Generation History | ContentForge AI",
+    description: "View your past AI content generation jobs, export results, and track your usage history.",
+};
 
 const GenerationHistoryPage = async ({
     searchParams,

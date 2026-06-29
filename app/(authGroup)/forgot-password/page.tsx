@@ -1,7 +1,11 @@
 import Logo from "@/components/logo/LogoIcon";
 import ForgotPasswordForm from "@/components/modules/Auth/ForgotPasswordForm";
 import { Separator } from "@/components/ui/separator";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Forgot Password | ContentForge AI",
+  description: "Enter your email to receive instructions on how to reset your ContentForge AI account password.",
+};
 export default function ForgotPasswordPage() {
   return (
     <main className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-12 px-4 bg-background">

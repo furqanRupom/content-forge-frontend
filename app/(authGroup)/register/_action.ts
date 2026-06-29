@@ -41,9 +41,9 @@ export const RegisterAction = async (payload: IRegisterPayload, redirectPath?: s
 
     } catch (error: any) {
         console.log(error, "error");
-        if (error && typeof error === "object" && "digest" in error && typeof error.digest === "string" && error.digest.startsWith("NEXT_REDIRECT")) {
-            throw error;
-        }
+        // if (error && typeof error === "object" && "digest" in error && typeof error.digest === "string" && error.digest.startsWith("NEXT_REDIRECT")) {
+        //     throw error;
+        // }
 
         if (error && error.response && error.response.data.message === "Email not verified") {
             redirect(`/verify-email?email=${payload.email}`);

@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { ILoginPayload, loginZodSchema } from "@/zod/auth.validation";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
-import { Eye, EyeOff, Zap, ArrowRight, Sparkles } from "lucide-react";
+import { Eye, EyeOff, ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -52,25 +52,36 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
         window.location.href = `${baseUrl}/auth/login/google`;
     };
 
+    const fillDemoCredentials = () => {
+        form.setFieldValue("email", "content-forge@manager.com");
+        form.setFieldValue("password", "CFManager@12345");
+    };
+
     return (
         <main className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-12 px-4 bg-background">
-            {/* Structural subtle ambient lighting nodes */}
             <div className="absolute w-96 h-96 -top-24 -left-24 rounded-full bg-primary/5 blur-[100px] pointer-events-none" />
             <div className="absolute w-80 h-80 -bottom-16 -right-16 rounded-full bg-primary/5 blur-[90px] pointer-events-none" />
 
             <div className="relative z-10 w-full max-w-md">
-                {/* Main Custom Styled Card Frame */}
                 <div className="bg-card border border-border/60 rounded-sm p-6 sm:p-8 shadow-sm">
-
-                    {/* Logo & Header Block */}
                     <div className="text-center mb-6">
-                        <Logo className="flex justify-center items-center pb-5"/>
+                        <Logo className="flex justify-center items-center pb-5" />
                         <Separator />
                         <h1 className="font-sans text-xl font-bold text-foreground tracking-tight pt-5">Welcome back</h1>
                         <p className="text-xs text-muted-foreground mt-0.5">Sign in to your workspace account</p>
                     </div>
 
-                    {/* Singular Google Authorization Gateway */}
+                    {/* Demo Credentials Helper */}
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        onClick={fillDemoCredentials}
+                        className="w-full h-8 rounded-sm text-[10px] font-bold text-muted-foreground bg-muted/30 hover:bg-muted hover:text-foreground border border-dashed border-border mb-5 transition-all gap-1.5 cursor-pointer"
+                    >
+                        <Sparkles className="h-3 w-3" />
+                       Login as a Manager
+                    </Button>
+
                     <div className="mb-5">
                         <Button
                             type="button"
@@ -95,10 +106,8 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                         </span>
                     </div>
 
-                    {/* Secure Form Processing Element Block */}
                     <form
                         method="POST"
-                        action="#"
                         noValidate
                         onSubmit={(e) => {
                             e.preventDefault();
@@ -107,76 +116,59 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                         }}
                         className="space-y-8"
                     >
-                        {/* Email Field Element */}
                         <form.Field
                             name="email"
                             validators={{ onChange: loginZodSchema.shape.email }}
                         >
                             {(field) => (
-                                <div className="space-y-2">
-                                    <AppField
-                                        field={field}
-                                        label="Email address"
-                                        type="email"
-                                        placeholder="you@company.com"
-                                        className="h-9 rounded-sm bg-muted/20 border-border/60 text-xs focus-visible:ring-1 focus-visible:ring-primary/40 transition-colors"
-                                    />
-                                </div>
+                                <AppField
+                                    field={field}
+                                    label="Email address"
+                                    type="email"
+                                    placeholder="you@company.com"
+                                    className="h-9 rounded-sm bg-muted/20 border-border/60 text-xs focus-visible:ring-1 focus-visible:ring-primary/40 transition-colors"
+                                />
                             )}
                         </form.Field>
 
-                        {/* Password Field Element */}
                         <form.Field
                             name="password"
                             validators={{ onChange: loginZodSchema.shape.password }}
                         >
                             {(field) => (
-                                <div className="space-y-2">
-                                    <AppField
-                                        field={field}
-                                        label="Password"
-                                        type={showPassword ? "text" : "password"}
-                                        placeholder="••••••••"
-                                        className="h-9 rounded-sm bg-muted/20 border-border/60 text-xs focus-visible:ring-1 focus-visible:ring-primary/40 transition-colors"
-                                        append={
-                                            <Button
-                                                type="button"
-                                                onClick={() => setShowPassword((prev) => !prev)}
-                                                variant="ghost"
-                                                size="icon"
-                                                className="h-7 w-7 text-muted-foreground hover:text-foreground cursor-pointer mr-1"
-                                                aria-label={showPassword ? "Hide password" : "Show password"}
-                                            >
-                                                {showPassword ? (
-                                                    <EyeOff className="h-3.5 w-3.5" aria-hidden="true" />
-                                                ) : (
-                                                    <Eye className="h-3.5 w-3.5" aria-hidden="true" />
-                                                )}
-                                            </Button>
-                                        }
-                                    />
-                                </div>
+                                <AppField
+                                    field={field}
+                                    label="Password"
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="••••••••"
+                                    className="h-9 rounded-sm bg-muted/20 border-border/60 text-xs focus-visible:ring-1 focus-visible:ring-primary/40 transition-colors"
+                                    append={
+                                        <Button
+                                            type="button"
+                                            onClick={() => setShowPassword((prev) => !prev)}
+                                            variant="ghost"
+                                            size="icon"
+                                            className="h-7 w-7 text-muted-foreground hover:text-foreground cursor-pointer mr-1"
+                                        >
+                                            {showPassword ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                                        </Button>
+                                    }
+                                />
                             )}
                         </form.Field>
 
-                        {/* Password Link Actions Row */}
                         <div className="text-right mt-1.5">
-                            <Link
-                                href="/forgot-password"
-                                className="text-[11px] font-bold text-primary hover:underline underline-offset-2"
-                            >
+                            <Link href="/forgot-password" className="text-[11px] font-bold text-primary hover:underline underline-offset-2">
                                 Forgot password?
                             </Link>
                         </div>
 
-                        {/* Error Notifications Container */}
                         {serverError && (
                             <Alert variant="destructive" className="p-3 rounded-sm bg-destructive/10 text-destructive border-destructive/20">
                                 <AlertDescription className="text-xs font-semibold leading-tight">{serverError}</AlertDescription>
                             </Alert>
                         )}
 
-                        {/* Dynamic Form Control Execution Trigger */}
                         <form.Subscribe
                             selector={(s) => [s.canSubmit, s.isSubmitting] as const}
                         >
@@ -194,13 +186,9 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                         </form.Subscribe>
                     </form>
 
-                    {/* Secure Workspace Registration Footer Links */}
                     <p className="text-center text-xs text-muted-foreground mt-5">
                         Don't have an account?{" "}
-                        <Link
-                            href="/register"
-                            className="text-primary font-bold hover:underline underline-offset-2"
-                        >
+                        <Link href="/register" className="text-primary font-bold hover:underline underline-offset-2">
                             Create one free
                         </Link>
                     </p>

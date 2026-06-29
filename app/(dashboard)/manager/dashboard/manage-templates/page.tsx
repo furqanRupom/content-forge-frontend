@@ -2,7 +2,12 @@
 import TemplatesTable from "@/components/modules/Manager/TemplatesManagement/TemplatesTable"
 import { getAllTemplates } from "@/services/template.service"
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query"
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+    title: "Manage Templates | ContentForge AI",
+    description: "Administrative console to create, update, and organize AI generation templates.",
+};
 const ManageTemplatesPage = async ({
     searchParams,
 }: {

@@ -2,7 +2,11 @@ import { Suspense } from "react";
 import Logo from "@/components/logo/LogoIcon";
 import { Separator } from "@/components/ui/separator";
 import ResetPasswordForm from "@/components/modules/Auth/ResetPasswordForm";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Reset Password | ContentForge AI",
+  description: "Create a new password for your ContentForge AI account.",
+};
 export default function ResetPasswordPage() {
   return (
     <main className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-12 px-4 bg-background">
