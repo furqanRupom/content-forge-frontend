@@ -67,6 +67,7 @@ export async function getUserInfo() {
 
     if (!res.ok) {
       console.error("Failed to fetch user info:", res.status, res.statusText);
+       await userLogout()
       return null;
     }
 

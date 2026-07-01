@@ -21,9 +21,9 @@ export const verifyEmailAction = async (payload: IVerifyEmailPayload): Promise<A
 
         const response = await httpClient.post<null>("/auth/verify-email", parsedPayload.data);
 
-        if(response.success){
-          redirect("/login")
-        }
+        // if(response.success){
+        //   redirect("/login")
+        // }
         return response
 
     } catch (error: any) {

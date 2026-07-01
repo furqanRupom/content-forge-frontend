@@ -26,10 +26,30 @@ export default function VerifyEmailForm() {
   const inputsRef = useRef<HTMLInputElement[]>([]);
 
   // 1. TanStack Query Mutation handler
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: (payload: IVerifyEmailPayload) => verifyEmailAction(payload),
-  });
 
+const { mutateAsync, isPending } = useMutation({
+    mutationFn: (payload: IVerifyEmailPayload) => verifyEmailAction(payload),
+    onSuccess: (result: any) => {
+      if (result?.success) {
+        toast.success("Account activated successfully!");
+        router.push("/login"); // or wherever you want
+      }else{
+        router.push("/login");
+      }
+    },
+    onError: (error: any) => {
+      // ← CRITICAL: Handle NEXT_REDIRECT
+      if (error?.digest?.startsWith("NEXT_REDIRECT")) {
+        toast.success("Account verified successfully!");
+        throw error;                    // ← Re-throw so redirect works
+      }
+
+      // Normal error
+      const message = error?.message || "Verification failed";
+      setServerError(message);
+      toast.error(message);
+    },
+  });
   // 2. TanStack Form coordination matching your structural pattern
   const form = useForm({
     defaultValues: {
@@ -53,7 +73,6 @@ export default function VerifyEmailForm() {
           return;
         }
 
-        toast.success("Account activated successfully! Redirecting...");
         router.push("/login")
       } catch (error: any) {
         console.error(`Verification error: ${error.message}`);

@@ -8,7 +8,7 @@ import { ILoginResponse } from "@/types/auth.types,";
 import { ILoginPayload, loginZodSchema } from "@/zod/auth.validation";
 import { redirect } from "next/navigation";
 
-export const loginAction = async (payload: ILoginPayload, redirectPath?: string): Promise<ILoginResponse | ApiErrorResponse> => {
+export const loginAction = async (payload: ILoginPayload, redirectPath?: string): Promise<ILoginResponse | ApiErrorResponse | never> => {
     const parsedPayload = loginZodSchema.safeParse(payload);
 
     if (!parsedPayload.success) {
@@ -28,9 +28,9 @@ export const loginAction = async (payload: ILoginPayload, redirectPath?: string)
         await setTokenInCookies("refreshToken", refreshToken);
         await setTokenInCookies("better-auth.session_token", token, 24 * 60 * 60); 
 
-        if(!emailVerified){
-            redirect("/verify-email");
-        }
+        // if(!emailVerified){
+        //     redirect("/verify-email");
+        // }
 
         const targetPath = redirectPath && isValidRedirectForRole(redirectPath, role as UserRole) ? redirectPath : getDefaultDashboardRoute(role as UserRole);
 
@@ -41,13 +41,13 @@ export const loginAction = async (payload: ILoginPayload, redirectPath?: string)
 
     } catch (error: any) {
         console.log(error, "error");
-        if (error && typeof error === "object" && "digest" in error && typeof error.digest === "string" && error.digest.startsWith("NEXT_REDIRECT")) {
-            throw error;
-        }
+        // if (error && typeof error === "object" && "digest" in error && typeof error.digest === "string" && error.digest.startsWith("NEXT_REDIRECT")) {
+        //     throw error;
+        // }
 
-        if (error && error.response && error.response.data.message === "Email not verified") {
-            redirect(`/verify-email?email=${payload.email}`);
-        }
+        // // if (error && error.response && error.response.data.message === "Email not verified") {
+        //     redirect(`/verify-email?email=${payload.email}`);
+        // }
         return {
             success: false,
             message: `Login failed: ${error.message}`,

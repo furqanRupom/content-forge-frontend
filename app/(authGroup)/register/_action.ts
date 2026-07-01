@@ -28,9 +28,9 @@ export const RegisterAction = async (payload: IRegisterPayload, redirectPath?: s
         await setTokenInCookies("refreshToken", refreshToken);
         await setTokenInCookies("better-auth.session_token", token, 24 * 60 * 60); 
 
-        if(!emailVerified){
-            redirect(`/verify-email?email=${payload.email}`);
-        }
+        // if(!emailVerified){
+        //     redirect(`/verify-email?email=${payload.email}`);
+        // }
 
         const targetPath = redirectPath && isValidRedirectForRole(redirectPath, role as UserRole) ? redirectPath : getDefaultDashboardRoute(role as UserRole);
 
@@ -45,9 +45,9 @@ export const RegisterAction = async (payload: IRegisterPayload, redirectPath?: s
         //     throw error;
         // }
 
-        if (error && error.response && error.response.data.message === "Email not verified") {
-            redirect(`/verify-email?email=${payload.email}`);
-        }
+        // if (error && error.response && error.response.data.message === "Email not verified") {
+        //     redirect(`/verify-email?email=${payload.email}`);
+        // }
         return {
             success: false,
             message: `registration failed: ${error.message}`,
