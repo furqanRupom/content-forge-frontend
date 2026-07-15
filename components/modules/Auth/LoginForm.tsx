@@ -31,8 +31,10 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
     onSuccess: (result: any) => {
       if (result?.success) {
         toast.success("Signed in successfully! Welcome back.");
-      } else {
 
+        router.push("/dashboard")
+      } else {
+        console.log(result)
         toast.success("Signed in successfully! Welcome back.");
         router.push("/dashboard")
         

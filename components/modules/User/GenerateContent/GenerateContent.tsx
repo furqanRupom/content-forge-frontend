@@ -28,7 +28,8 @@ import { ITemplate } from "@/types/template.types"
 const TONES = ["Professional", "Casual", "Formal", "Friendly", "Persuasive", "Playful", "Urgent", "Creative"]
 
 const MODELS = [
-    { value: "gemini-3.5-flash", label: "Flash — fast" },
+ { value: "gemini-2.5-flash", label: "Gemini 2.5 Flash — Fast & Cheap" },
+ { value: "gemini-3.5-flash", label: "Gemini 3.5 Flash — fast" },
 ]
 
 type MsgRole = "user" | "assistant"
@@ -460,7 +461,7 @@ export default function GenerateContentPage() {
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="outline" size="sm" className="h-8 rounded-full text-[11px] font-mono border-border text-muted-foreground">
-                                {MODELS.find(m => m.value === model)?.label || "Compute Engine Engine"}
+                                {MODELS.find(m => m.value === model)?.label || "Compute Engine"}
                                 <ChevronDown className="ml-1 h-3 w-3 opacity-60" />
                             </Button>
                         </DropdownMenuTrigger>
