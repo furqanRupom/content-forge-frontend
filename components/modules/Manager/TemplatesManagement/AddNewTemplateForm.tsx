@@ -152,7 +152,7 @@ export default function AddNewTemplateForm() {
                             {(field) => (
                                 <div className="space-y-2">
                                     <Label htmlFor={field.name} className="text-sm font-medium">
-                                        Engine Runtime Enum Type
+                                        Template Type
                                     </Label>
                                     <select
                                         id={field.name}
