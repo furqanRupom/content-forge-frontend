@@ -107,7 +107,7 @@ export default function AddNewTemplateForm() {
                         {(field) => (
                             <AppField
                                 field={field}
-                                label="Unique Template Key Identifier"
+                                label="Key"
                                 placeholder="e.g., dev-git-commit-optimizer"
                             />
                         )}
@@ -118,7 +118,7 @@ export default function AddNewTemplateForm() {
                         {(field) => (
                             <AppField
                                 field={field}
-                                label="Template Display Title"
+                                label="Title"
                                 placeholder="e.g., Conventional Git Commit Builder"
                             />
                         )}
@@ -129,7 +129,7 @@ export default function AddNewTemplateForm() {
                         {(field) => (
                             <AppField
                                 field={field}
-                                label="System Layout Description"
+                                label="Descriiption"
                                 placeholder="Describe what core parsing problem this template blueprint solves..."
                             />
                         )}
@@ -141,7 +141,7 @@ export default function AddNewTemplateForm() {
                             {(field) => (
                                 <AppField
                                     field={field}
-                                    label="Display Group Category"
+                                    label="Category"
                                     placeholder="e.g., Development, SEO, Marketing"
                                 />
                             )}
@@ -181,7 +181,7 @@ export default function AddNewTemplateForm() {
                         {(field) => (
                             <AppField
                                 field={field}
-                                label="Prompt Blueprint Instructions (Optional)"
+                                label="Prompt Hint"
                                 placeholder="Provide helper placeholders or guidelines to assist the prompt engine generation configuration matrix..."
                             />
                         )}
