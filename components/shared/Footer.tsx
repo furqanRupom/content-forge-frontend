@@ -115,14 +115,10 @@ export default function Footer() {
         </div>
 
         {/* Bottom Operational Status Bar */}
-        <div className="border-t border-border/40 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-[11px] text-muted-foreground text-center sm:text-left">
+        <div className="border-t border-border/40 py-5 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <p className="text-[11px] text-muted-foreground text-center sm:text-center">
             © {new Date().getFullYear()} ContentForge AI. All rights reserved.
           </p>
-          <div className="flex items-center gap-1.5 bg-card border border-border/60 rounded-sm px-2.5 py-0.5 shadow-sm">
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground">All systems operational</span>
-          </div>
         </div>
       </div>
     </footer>
