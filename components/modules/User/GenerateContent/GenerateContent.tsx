@@ -207,7 +207,7 @@ export default function GenerateContentPage() {
     const [prompt, setPrompt] = useState("")
     const [templateId, setTemplateId] = useState("")
     const [tone, setTone] = useState("")
-    const [model, setModel] = useState("gemini-1.5-flash")
+    const [model, setModel] = useState("gemini-3.5-flash-lite")
     const [messages, setMessages] = useState<ChatMessage[]>([
         {
             id: "greeting",
