@@ -29,7 +29,8 @@ const TONES = ["Professional", "Casual", "Formal", "Friendly", "Persuasive", "Pl
 
 const MODELS = [
  { value: "gemini-2.5-flash", label: "Gemini 2.5 Flash — Fast & Cheap" },
- { value: "gemini-3.5-flash", label: "Gemini 3.5 Flash — fast" },
+ { value: "gemini-3.5-flash", label: "Gemini 3.5 Flash — Fast" },
+ { value: "gemini-3.5-flash-lite", label: "Flash-Lite" },
 ]
 
 type MsgRole = "user" | "assistant"
@@ -207,7 +208,7 @@ export default function GenerateContentPage() {
     const [prompt, setPrompt] = useState("")
     const [templateId, setTemplateId] = useState("")
     const [tone, setTone] = useState("")
-    const [model, setModel] = useState("gemini-3.5-flash-lite")
+    const [model, setModel] = useState("Flash-Lite")
     const [messages, setMessages] = useState<ChatMessage[]>([
         {
             id: "greeting",
@@ -466,7 +467,7 @@ export default function GenerateContentPage() {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="start" className="font-mono text-xs rounded-[var(--radius)] border-border bg-popover">
-                            {MODELS.map((m) => (
+                Flash-Lite (
                                 <DropdownMenuItem key={m.value} onClick={() => setModel(m.value)} className="cursor-pointer">
                                     {m.label}
                                 </DropdownMenuItem>
