@@ -461,7 +461,7 @@ export default function GenerateContentPage() {
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="outline" size="sm" className="h-8 rounded-full text-[11px] font-mono border-border text-muted-foreground">
-                                {MODELS.find(m => m.value === model)?.label || "Compute Engine"}
+                                {MODELS.find(m => m.value === model)?.label}
                                 <ChevronDown className="ml-1 h-3 w-3 opacity-60" />
                             </Button>
                         </DropdownMenuTrigger>
