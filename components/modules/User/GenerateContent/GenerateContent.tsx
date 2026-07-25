@@ -29,7 +29,7 @@ const TONES = ["Professional", "Casual", "Formal", "Friendly", "Persuasive", "Pl
 
 const MODELS = [
  { value: "gemini-2.5-flash", label: "Gemini 2.5 Flash — Fast & Cheap" },
- { value: "gemini-3.5-flash", label: "Gemini 3.5 Flash — Fast" },
+ { value: "gemini-3.5-flash", label: "Gemini 3.5 Flash — fast" },
  { value: "gemini-3.5-flash-lite", label: "Flash-Lite" },
 ]
 
@@ -467,7 +467,7 @@ export default function GenerateContentPage() {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="start" className="font-mono text-xs rounded-[var(--radius)] border-border bg-popover">
-                Flash-Lite (
+                            {MODELS.map((m) => (
                                 <DropdownMenuItem key={m.value} onClick={() => setModel(m.value)} className="cursor-pointer">
                                     {m.label}
                                 </DropdownMenuItem>
